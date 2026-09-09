@@ -2,6 +2,8 @@ const { test } = require('@playwright/test');
 
 const LoginPage = require('../pages/LoginPage');
 const ProductPage = require('../pages/ProductPage');
+const ProductDetailPage = require('../pages/ProductDetailPage');
+
 
 exports.test = test.extend({
 
@@ -17,6 +19,11 @@ exports.test = test.extend({
 
     },
 
+    productDetailPage: async ({ page }, use) => {
+
+        await use(new ProductDetailPage(page));
+
+    },
 });
 
 exports.expect = require('@playwright/test').expect;
