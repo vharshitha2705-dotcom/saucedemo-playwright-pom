@@ -154,3 +154,27 @@ test("TC_PRODUCT_014 - Verify sorting does not affect cart badge count", async (
     expect(cartCountBeforeSorting).toBe(cartCountAfterSorting);
 });
 
+test('TC_PRODUCT_015 - Verify clicking product name navigates to Product Details page', async ({ page, productPage, productDetailPage }) => {
+    const expectedProduct = 'Sauce Labs Fleece Jacket';
+
+    await productPage.openProductDetails(expectedProduct);
+
+    await expect(productPage.page).toHaveURL(/inventory-item/);
+
+    await expect(productDetailPage.itemName)
+        .toHaveText(expectedProduct);
+});
+
+test("TC_PRODUCT_016 - Verify product details match the selected product", async ({ productPage, productDetailPage }) => {
+    const expectedProduct = "Sauce Labs Fleece Jacket";
+
+    const expectedDetails = await productPage.getProductData(expectedProduct);
+    await productPage.openProductDetails(expectedProduct);
+
+    await expect(productDetailPage.itemName)
+        .toHaveText(expectedProduct);
+
+    const actualDetails = await productDetailPage.getProductDetails();
+
+    expect(actualDetails).toEqual(expectedDetails);
+});
