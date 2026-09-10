@@ -59,6 +59,16 @@ class ProductDetailPage {
             price: (await this.itemPrice.textContent())?.trim(),
         };
     }
+
+    async openCartPage() {
+        await this.cartLink.click();
+    }
+
+    async getCartBadgeCount() {
+        return await this.cartBadge.isVisible()
+            ? Number(await this.cartBadge.textContent())
+            : 0;
+    }
 }
 
 module.exports = ProductDetailPage;
