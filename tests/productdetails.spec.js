@@ -8,14 +8,10 @@ test.beforeEach(async ({ loginPage }) => {
 test('TC_PRODUCT_DETAILS_004 - Verify user can add a product to the cart from the Product Details page', async ({ productPage, productDetailPage }) => {
   const expectedProduct = 'Sauce Labs Fleece Jacket'; // or Backpack, per your decision
 
-  const cartCountBefore = await productPage.cartBadge.isVisible()
-    ? Number(await productPage.cartBadge.textContent())
-    : 0;
-
+  const cartCountBefore = await productPage.getCartBadgeCount();
   await productPage.openProductDetails(expectedProduct);
   await productDetailPage.addProductToCart();
-
-  const cartCountAfter = Number(await productPage.cartBadge.textContent());
+  const cartCountAfter = await productPage.getCartBadgeCount();
 
   expect(cartCountAfter).toBe(cartCountBefore + 1);
   await expect(productDetailPage.removeButton).toBeVisible();
@@ -27,16 +23,18 @@ test('TC_PRODUCT_DETAILS_005 - Verify user can remove a product from the cart fr
   await productPage.openProductDetails(expectedProduct);
   await productDetailPage.addProductToCart();
 
-  const cartCountBefore = Number(await productPage.cartBadge.textContent());
-
+  const cartCountBefore = await productPage.getCartBadgeCount();
   await productDetailPage.removeProductFromCart();
-
-  const cartCountAfter = await productPage.cartBadge.isVisible()
-    ? Number(await productPage.cartBadge.textContent())
-    : 0;
+  const cartCountAfter = await productPage.getCartBadgeCount();
 
   expect(cartCountAfter).toBe(cartCountBefore - 1);
   await expect(productDetailPage.addToCartButton).toBeVisible();
+});
+
+test('TC_PRODUCT_DETAILS_006 - Verify Cart button navigates to the Cart page from the Product Details page', async ({ page, productPage, productDetailPage }) => {
+  await productPage.openProductDetails('Sauce Labs Fleece Jacket');
+  await productDetailPage.openCartPage();
+  await expect(page).toHaveURL(/.*cart\.html/);
 });
 
 test('TC_PRODUCT_DETAILS_007 - Verify navigation back to Product Listing page from Product Details page', async ({ productPage, productDetailPage, page }) => {
