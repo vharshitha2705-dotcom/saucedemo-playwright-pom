@@ -7,6 +7,7 @@ const CartPage = require('../pages/CartPage');
 const CheckoutInfoPage = require('../pages/CheckoutInfoPage');
 const CheckoutOverviewPage = require('../pages/CheckoutOverviewPage');
 const CheckoutCompletePage = require('../pages/CheckoutCompletePage');
+const MenuPage = require('../pages/MenuPage');
 
 
 exports.test = test.extend({
@@ -50,6 +51,12 @@ exports.test = test.extend({
     checkoutCompletePage: async ({ page }, use) => {
         
         await use(new CheckoutCompletePage(page));
+
+    },
+
+    menuPage: async ({ page }, use) => {
+        
+        await use(new MenuPage(page));
 
     },
 
