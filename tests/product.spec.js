@@ -60,10 +60,8 @@ test("TC_PRODUCT_006 - Verify all product prices are greater than zero", async (
 });
 
 test("TC_PRODUCT_007 - Verify product images are displayed and loaded successfully", async ({ productPage }) => {
+    await expect(productPage.itemImage).toHaveCount(6);
     const imageCount = await productPage.itemImage.count();
-
-    expect(imageCount).toBe(6);
-
     for (let i = 0; i < imageCount; i++) {
         await expect(productPage.itemImage.nth(i)).toBeVisible();
         await expect(productPage.itemImage.nth(i)).toHaveAttribute("src", /.+/);

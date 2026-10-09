@@ -27,6 +27,8 @@ class CartPage {
     }
 
     async getCartItemCount() {
+        await this.page.waitForURL(/cart\.html/);
+        await this.page.locator('[data-test="cart-list"]').waitFor();
         return await this.cartItems.count();
     }
 

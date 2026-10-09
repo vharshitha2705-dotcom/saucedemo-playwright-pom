@@ -10,14 +10,8 @@ class ProductDetailPage {
         this.itemName = page.locator(".inventory_details_name");
         this.itemDesc = page.locator(".inventory_details_desc");
         this.itemPrice = page.locator(".inventory_details_price");
-
-        this.addToCartButton = page.getByRole("button", {
-            name: 'Add to cart'
-        });
-
-        this.removeButton = page.getByRole("button", {
-            name: 'Remove'
-        });
+        this.addToCartButton = page.locator('.inventory_details [data-test^="add-to-cart"]');
+        this.removeButton = page.locator('.inventory_details [data-test^="remove"]');
 
         this.backButton = page.getByRole("button", {
             name: 'Back to products'
@@ -41,6 +35,7 @@ class ProductDetailPage {
     //========================
 
     async addProductToCart() {
+        await this.page.waitForURL(/inventory-item\.html/);
         await this.addToCartButton.click();
     }
 

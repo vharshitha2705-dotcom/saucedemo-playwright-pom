@@ -70,9 +70,10 @@ class ProductPage {
     }
 
     async openProductDetails(productName) {
-        await this.getProduct(productName)
-            .locator(".inventory_item_name")
+        await this.page
+            .locator('[data-test="inventory-item-name"]', { hasText: productName })
             .click();
+        await this.page.waitForURL(/inventory-item\.html/);
     }
 
     async openProductDetailsByImage(productName) {
@@ -120,6 +121,8 @@ class ProductPage {
     }
 
     async getAllProductData() {
+        await this.page.waitForURL(/inventory\.html/);
+        await this.page.locator('[data-test="inventory-item"]').first().waitFor();
         const products = [];
         const count = await this.getProductCount();
         for (let i = 0; i < count; i++) {
