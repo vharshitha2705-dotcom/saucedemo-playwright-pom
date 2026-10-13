@@ -1,5 +1,12 @@
 const { test, expect } = require("../fixtures/testFixtures");
 const { loginAsStandardUser } = require('../utils/auth');
+const allure = require('allure-js-commons');
+
+test.beforeEach(async () => {
+    await allure.epic('SauceDemo Web App');
+    await allure.feature('Side Menu');
+    await allure.owner('Harshitha');
+});
 
 test.beforeEach(async ({ page }) => {
     await loginAsStandardUser(page);

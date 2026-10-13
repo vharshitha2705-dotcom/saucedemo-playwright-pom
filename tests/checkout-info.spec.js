@@ -1,5 +1,12 @@
 const { test, expect } = require("../fixtures/testFixtures");
 const checkoutValidationData = require('../test-data/checkoutValidationData');
+const allure = require('allure-js-commons');
+
+test.beforeEach(async () => {
+    await allure.epic('SauceDemo Web App');
+    await allure.feature('Checkout Information');
+    await allure.owner('Harshitha');
+});
 
 const PRODUCT = 'Sauce Labs Backpack';
 

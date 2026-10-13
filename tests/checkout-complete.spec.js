@@ -1,4 +1,11 @@
 const { test, expect } = require("../fixtures/testFixtures");
+const allure = require('allure-js-commons');
+
+test.beforeEach(async () => {
+    await allure.epic('SauceDemo Web App');
+    await allure.feature('Checkout Completion');
+    await allure.owner('Harshitha');
+});
 
 test.beforeEach(async ({page,loginPage,productPage,cartPage,checkoutInfoPage,checkoutOverviewPage}) => {
 

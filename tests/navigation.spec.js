@@ -1,4 +1,11 @@
 const { test, expect } = require('../fixtures/testFixtures');
+const allure = require('allure-js-commons');
+
+test.beforeEach(async () => {
+    await allure.epic('SauceDemo Web App');
+    await allure.feature('Navigation Integrity');
+    await allure.owner('Harshitha');
+});
 
 const BASE_URL = 'https://www.saucedemo.com';
 const STANDARD_USER = 'standard_user';

@@ -6,6 +6,13 @@ const {
     isAscendingStrings,
     isDescendingStrings,
 } = require("../utils/sortingHelper");
+const allure = require('allure-js-commons');
+
+test.beforeEach(async () => {
+    await allure.epic('SauceDemo Web App');
+    await allure.feature('Product Listing');
+    await allure.owner('Harshitha');
+});
 
 test.beforeEach(async ({ page }) => {
     await loginAsStandardUser(page);
