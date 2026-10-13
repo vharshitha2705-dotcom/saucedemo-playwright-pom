@@ -2,7 +2,7 @@
 
 ![Playwright Tests](https://github.com/vharshitha2705-dotcom/saucedemo-playwright-pom/actions/workflows/playwright.yml/badge.svg)
 
-End-to-end UI test automation framework for [SauceDemo](https://www.saucedemo.com), built with Playwright and JavaScript using the Page Object Model (POM) pattern. 77 automated tests run on Chromium, Firefox and WebKit, and every push is verified through GitHub Actions.
+End-to-end UI test automation framework for [SauceDemo](https://www.saucedemo.com), built with Playwright and JavaScript using the Page Object Model (POM) pattern. 77 automated tests run on Chromium, Firefox and WebKit, and every push is verified through GitHub Actions, with an Allure report published online after each run.
 
 ## Highlights
 
@@ -10,20 +10,21 @@ End-to-end UI test automation framework for [SauceDemo](https://www.saucedemo.co
 - Page Object Model with one class per page and custom Playwright fixtures
 - Cross-browser execution: Chromium, Firefox and WebKit
 - CI/CD on GitHub Actions, with one parallel job per browser
+- Allure dashboard published on GitHub Pages after every CI run, with test history and trends
 - HTML reports with screenshots, video and traces captured on failure
 - Test data kept separate from test logic
 - Stability work verified with repeated runs (`--repeat-each=3`) on all browsers
 
 ## Tech Stack
 
-| Area            | Tools                               |
-|-----------------|------------------------------------ |
-| Automation      | Playwright, JavaScript (Node.js 20) |
-| Pattern         | Page Object Model, custom fixtures  |
-| CI/CD           | GitHub Actions                      |
-| Reporting       | Playwright HTML report              |
-| Documentation   | Excel test case workbook            |
-| Version control | Git, GitHub                         |
+| Area            | Tools                                |
+|-----------------|------------------------------------- |
+| Automation      | Playwright, JavaScript (Node.js 20)  |
+| Pattern         | Page Object Model, custom fixtures   |
+| CI/CD           | GitHub Actions                       |
+| Reporting       | Playwright HTML report,Allure Report |
+| Documentation   | Excel test case workbook             |
+| Version control | Git, GitHub                          |
 
 ## Modules Covered
 
@@ -62,6 +63,7 @@ npm run test:webkit
 npm run test:headed       # watch the browser run
 npm run test:ui           # Playwright UI mode
 npm run report            # open the last HTML report
+npm run allure:serve
 ```
 
 ## CI/CD
@@ -71,6 +73,21 @@ The workflow in `.github/workflows/playwright.yml` runs on every push and pull r
 - A separate job runs for each browser, so one browser's failure never hides the others
 - Failed tests are retried twice in CI to separate real failures from one-off slowness
 - The HTML report is uploaded as an artifact on every run, and screenshots, videos and traces are uploaded when something fails
+
+## Allure Report
+
+Every push to main builds one Allure report from all three browsers (231 results per run) and publishes it on GitHub Pages. Tests are grouped by epic and feature, so the Behaviors tab shows coverage per module. The report keeps history between runs, so the Trend chart fills in over time.
+
+[View the live Allure report](https://vharshitha2705-dotcom.github.io/saucedemo-playwright-pom/)
+
+![Allure report](docs/images/allure-overview.png)
+
+To build it locally:
+
+```bash
+npm test
+npm run allure:serve
+``` 
 
 ## Test Reports
 
